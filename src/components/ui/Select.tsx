@@ -8,18 +8,20 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   placeholder?: string;
 }
 
-const Select: React.FC<SelectProps> = ({ label, error, hint, options, placeholder, className = '', id, ...props }) => {
+export const Select: React.FC<SelectProps> = ({ label, error, hint, options, placeholder, className = '', id, ...props }) => {
   const selectId = id || label?.toLowerCase().replace(/\s+/g, '-');
   return (
-    <div className="flex flex-col gap-1">
+    <div className="w-full flex flex-col gap-1.5">
       {label && (
-        <label htmlFor={selectId} className="text-[10px] font-mono uppercase tracking-widest text-hprh-pine/70 font-bold select-none">
+        <label htmlFor={selectId} className="text-xs font-semibold text-slate-700 select-none">
           {label}
         </label>
       )}
       <select
         id={selectId}
-        className={`w-full bg-hprh-paper border-2 ${error ? 'border-hprh-clay' : 'border-hprh-pine/15'} focus:border-hprh-sage focus:ring-1 focus:ring-hprh-sage/20 rounded py-2.5 px-3.5 text-sm text-hprh-pine outline-none transition-all appearance-none cursor-pointer ${className}`}
+        className={`w-full bg-slate-50 border border-slate-200 focus:border-indigo-600 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 rounded-xl px-4 py-2.5 text-sm text-slate-900 font-sans outline-none transition-all cursor-pointer ${
+          error ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500/10 bg-rose-50/30' : ''
+        } ${className}`}
         {...props}
       >
         {placeholder && <option value="">{placeholder}</option>}
@@ -27,8 +29,8 @@ const Select: React.FC<SelectProps> = ({ label, error, hint, options, placeholde
           <option key={opt.value} value={opt.value}>{opt.label}</option>
         ))}
       </select>
-      {hint && !error && <p className="text-[10px] text-hprh-pine/50 font-sans">{hint}</p>}
-      {error && <p className="text-[10px] text-hprh-clay font-sans font-medium">{error}</p>}
+      {hint && !error && <p className="text-xs text-slate-500 font-sans">{hint}</p>}
+      {error && <p className="text-xs text-rose-600 font-sans font-medium">{error}</p>}
     </div>
   );
 };

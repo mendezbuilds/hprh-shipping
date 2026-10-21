@@ -21,28 +21,32 @@ export const AdminHeader: React.FC = () => {
   const getLinkClass = (path: string) => {
     const isActive = location.pathname === path || (path !== '/admin/dashboard' && location.pathname.startsWith(path));
     return isActive
-      ? 'bg-hprh-pine text-hprh-paper font-bold'
-      : 'text-hprh-pine/70 hover:text-hprh-sage hover:bg-hprh-pine/5';
+      ? 'bg-slate-900 text-white font-semibold shadow-xs'
+      : 'text-slate-600 hover:text-indigo-600 hover:bg-slate-100 font-medium';
   };
 
   return (
-    <header className="bg-hprh-paper-dark border-b border-hprh-pine/15 sticky top-20 z-40 shadow-sm select-none font-sans">
+    <header className="bg-white border-b border-slate-200/80 sticky top-20 z-40 shadow-xs select-none font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Bar */}
         <div className="flex items-center justify-between py-3">
-          <div className="flex items-center gap-2">
-            <Truck className="w-4 h-4 text-hprh-sage" />
-            <span className="font-display font-black text-sm sm:text-base tracking-wider text-hprh-pine">
-              Transport Admin Portal
-            </span>
-            <span className="font-mono text-[9px] uppercase tracking-widest text-hprh-clay font-bold bg-hprh-clay/10 border border-hprh-clay/20 px-2 py-0.5 rounded">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
+              <Truck className="w-4 h-4 text-white" />
+            </div>
+            <div className="flex items-baseline tracking-tight">
+              <span className="font-display font-extrabold text-sm sm:text-base text-slate-900">
+                Rescue<span className="text-indigo-600">4paws</span> Transport Portal
+              </span>
+            </div>
+            <span className="text-[10px] uppercase tracking-wider text-indigo-700 font-bold bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full">
               RESTRICTED
             </span>
           </div>
           <div className="flex md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-hprh-pine/70 hover:text-hprh-pine p-1.5 border border-hprh-pine/15 rounded hover:bg-hprh-pine/5 focus:outline-none transition-colors"
+              className="text-slate-600 hover:text-slate-900 p-1.5 border border-slate-200 rounded-lg bg-slate-50 hover:bg-slate-100 focus:outline-none transition-colors"
             >
               {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -50,11 +54,11 @@ export const AdminHeader: React.FC = () => {
         </div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex flex-wrap items-center justify-between pb-3 gap-3 border-t border-hprh-pine/10 pt-3">
+        <div className="hidden md:flex flex-wrap items-center justify-between pb-3 gap-3 border-t border-slate-100 pt-3">
           <nav className="flex flex-wrap items-center gap-1.5">
             <Link
               to="/admin/dashboard"
-              className={`inline-flex items-center gap-1.5 text-[10px] lg:text-xs font-mono font-semibold uppercase tracking-wider px-3 py-2 rounded transition-all ${getLinkClass('/admin/dashboard')}`}
+              className={`inline-flex items-center gap-1.5 text-xs px-3.5 py-1.5 rounded-full transition-all ${getLinkClass('/admin/dashboard')}`}
             >
               <LayoutDashboard className="w-3.5 h-3.5" />
               Dashboard
@@ -65,7 +69,7 @@ export const AdminHeader: React.FC = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`inline-flex items-center gap-1.5 text-[10px] lg:text-xs font-mono font-semibold uppercase tracking-wider px-3 py-2 rounded transition-all ${getLinkClass(item.path)}`}
+                  className={`inline-flex items-center gap-1.5 text-xs px-3.5 py-1.5 rounded-full transition-all ${getLinkClass(item.path)}`}
                 >
                   <Icon className="w-3.5 h-3.5" />
                   {item.label}
@@ -75,7 +79,7 @@ export const AdminHeader: React.FC = () => {
           </nav>
           <button
             onClick={handleLogout}
-            className="inline-flex items-center gap-1.5 text-[10px] lg:text-xs font-mono font-bold uppercase tracking-wider text-hprh-clay hover:bg-hprh-clay/10 border border-hprh-clay/25 px-3.5 py-2 rounded transition-all"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-50 border border-rose-200 px-3.5 py-1.5 rounded-full transition-all"
           >
             <LogOut className="w-3.5 h-3.5" />
             Log Out
@@ -84,11 +88,11 @@ export const AdminHeader: React.FC = () => {
 
         {/* Mobile Nav */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-hprh-pine/15 py-3 space-y-1.5">
+          <div className="md:hidden border-t border-slate-100 py-3 space-y-1.5">
             <Link
               to="/admin/dashboard"
               onClick={() => setIsMenuOpen(false)}
-              className={`flex items-center gap-2.5 text-xs font-mono font-semibold uppercase tracking-wider px-4 py-2.5 rounded transition-all ${getLinkClass('/admin/dashboard')}`}
+              className={`flex items-center gap-2.5 text-xs px-4 py-2.5 rounded-xl transition-all ${getLinkClass('/admin/dashboard')}`}
             >
               <LayoutDashboard className="w-4 h-4" /> Dashboard
             </Link>
@@ -99,16 +103,16 @@ export const AdminHeader: React.FC = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`flex items-center gap-2.5 text-xs font-mono font-semibold uppercase tracking-wider px-4 py-2.5 rounded transition-all ${getLinkClass(item.path)}`}
+                  className={`flex items-center gap-2.5 text-xs px-4 py-2.5 rounded-xl transition-all ${getLinkClass(item.path)}`}
                 >
                   <Icon className="w-4 h-4" /> {item.label}
                 </Link>
               );
             })}
-            <div className="pt-2 border-t border-hprh-pine/10">
+            <div className="pt-2 border-t border-slate-100">
               <button
                 onClick={() => { setIsMenuOpen(false); handleLogout(); }}
-                className="w-full flex items-center justify-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-hprh-clay hover:bg-hprh-clay/10 border border-hprh-clay/25 py-2.5 rounded transition-all"
+                className="w-full flex items-center justify-center gap-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 border border-rose-200 py-2.5 rounded-xl transition-all"
               >
                 <LogOut className="w-4 h-4" /> Log Out
               </button>

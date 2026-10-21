@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import { Package, Loader2, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { PawPrint, Loader2, Eye, EyeOff, AlertCircle, ArrowLeft, ShieldCheck } from 'lucide-react';
 
 const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
@@ -44,54 +44,92 @@ const AdminLogin: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-hprh-pine flex items-center justify-center p-4"
-      style={{ backgroundImage: 'radial-gradient(#FBF7EE08 1px, transparent 0)', backgroundSize: '20px 20px' }}>
+    <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4 relative overflow-hidden font-sans">
+      {/* Ambient background glows */}
+      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-md space-y-8">
+      <div className="w-full max-w-md space-y-8 relative z-10">
+
+        {/* Back link */}
+        <div>
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            Back to Transport Home
+          </Link>
+        </div>
 
         {/* Brand */}
         <div className="text-center">
-          <div className="w-16 h-16 bg-hprh-sage rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Package className="w-9 h-9 text-white" />
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-sky-400 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25 mx-auto mb-4">
+            <PawPrint className="w-7 h-7 text-white" />
           </div>
-          <h1 className="font-display text-3xl font-extrabold text-hprh-paper">Staff Portal</h1>
-          <p className="text-xs text-hprh-paper/50 font-mono uppercase tracking-widest mt-1">HPRH Transport — Restricted Access</p>
+          <div className="flex items-baseline justify-center tracking-tight">
+            <span className="font-display text-3xl font-extrabold text-white leading-tight">
+              Rescue
+            </span>
+            <span className="font-display text-3xl font-black bg-gradient-to-r from-indigo-400 to-sky-400 bg-clip-text text-transparent leading-tight ml-1">
+              4paws
+            </span>
+          </div>
+          <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold mt-1">
+            Transport Staff Portal
+          </p>
         </div>
 
         {/* Form card */}
-        <div className="bg-hprh-paper rounded-2xl p-8 shadow-2xl space-y-5">
+        <div className="bg-white rounded-3xl p-8 shadow-2xl border border-slate-200/80 space-y-6">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div>
+              <h2 className="font-display text-lg font-bold text-slate-900">Staff Authentication</h2>
+              <p className="text-xs text-slate-500">Sign in to manage shipments & tracking</p>
+            </div>
+            <div className="flex items-center gap-1 text-[11px] font-semibold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-200/60">
+              <ShieldCheck className="w-3.5 h-3.5 text-indigo-600" />
+              <span>Restricted</span>
+            </div>
+          </div>
+
           {error && (
-            <div className="bg-hprh-clay/10 border border-hprh-clay/20 rounded p-4 flex items-start gap-3 text-xs">
-              <AlertCircle className="w-4 h-4 text-hprh-clay flex-shrink-0 mt-0.5" />
-              <p className="text-hprh-pine">{error}</p>
+            <div className="bg-rose-50 border border-rose-200 text-rose-700 rounded-xl p-4 flex items-start gap-3 text-xs animate-in fade-in">
+              <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+              <p className="font-medium">{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-5">
+          <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-[10px] font-mono uppercase tracking-widest text-hprh-pine/70 font-bold">Email Address</label>
+              <label className="text-xs font-semibold text-slate-700">Email Address</label>
               <input
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
-                className="w-full bg-hprh-paper-dark border-2 border-hprh-pine/15 focus:border-hprh-sage focus:ring-1 focus:ring-hprh-sage/20 rounded py-2.5 px-4 text-sm text-hprh-pine outline-none transition-all"
-                placeholder="staff@happypawsrescue.com"
+                className="w-full bg-slate-50 border border-slate-200 focus:border-indigo-600 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400"
+                placeholder="staff@rescue4paws.org"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] font-mono uppercase tracking-widest text-hprh-pine/70 font-bold">Password</label>
+              <label className="text-xs font-semibold text-slate-700">Password</label>
               <div className="relative">
                 <input
                   type={showPw ? 'text' : 'password'}
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   required
-                  className="w-full bg-hprh-paper-dark border-2 border-hprh-pine/15 focus:border-hprh-sage focus:ring-1 focus:ring-hprh-sage/20 rounded py-2.5 px-4 pr-10 text-sm text-hprh-pine outline-none transition-all"
+                  className="w-full bg-slate-50 border border-slate-200 focus:border-indigo-600 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 rounded-xl px-4 py-2.5 pr-10 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400"
                   placeholder="••••••••"
                 />
-                <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-hprh-pine/40 hover:text-hprh-pine">
+                <button
+                  type="button"
+                  onClick={() => setShowPw(!showPw)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+                  aria-label="Toggle password visibility"
+                >
                   {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
@@ -100,12 +138,24 @@ const AdminLogin: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-hprh-pine text-hprh-paper font-mono font-bold text-sm uppercase tracking-wider py-3 rounded hover:bg-hprh-sage transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-semibold text-sm py-3 rounded-full transition-all duration-200 shadow-md shadow-indigo-500/25 hover:shadow-lg disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer mt-2"
             >
-              {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Verifying...</> : 'Sign In to Portal'}
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Verifying Credentials...</span>
+                </>
+              ) : (
+                'Sign In to Portal'
+              )}
             </button>
           </form>
+
+          <div className="pt-2 text-center text-xs text-slate-400">
+            Authorized personnel only. All access is logged and verified.
+          </div>
         </div>
+
       </div>
     </div>
   );

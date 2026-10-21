@@ -7,7 +7,7 @@ interface PageShellProps {
 }
 
 const PageShell: React.FC<PageShellProps> = ({ children }) => (
-  <div className="min-h-screen flex flex-col bg-hprh-paper">
+  <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-indigo-500 selection:text-white">
     <Nav />
     <main className="flex-1">
       {children}

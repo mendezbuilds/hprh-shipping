@@ -1,5 +1,5 @@
 // ========================================================
-// HPRH TRANSPORT SUBDOMAIN — TYPE DEFINITIONS
+// RESCUE4PAWS TRANSPORT NETWORK — TYPE DEFINITIONS
 // ========================================================
 
 export type ShipmentType = 'self' | 'send_to_other';

@@ -4,24 +4,24 @@ import { supabase } from '../../lib/supabase';
 import Container from '../../components/ui/Container';
 import {
   Search, AlertTriangle, Loader2, CheckCircle2, MapPin,
-  Package, Plane, Truck, PawPrint, Info
+  PawPrint, Info
 } from 'lucide-react';
 import type { Shipment, ShipmentTrackingEvent, TrackingStatus } from '../../lib/types';
 import { TRACKING_STATUS_LABELS, CATEGORY_LABELS } from '../../lib/types';
 
 // Status configuration: color and icon per status
 const STATUS_CONFIG: Record<TrackingStatus, { dot: string; badge: string; label: string }> = {
-  SHIPMENT_CREATED:           { dot: 'bg-hprh-pine/60 border-hprh-pine/40', badge: 'bg-hprh-pine/10 text-hprh-pine/70 border-hprh-pine/20', label: 'Shipment Created' },
-  SHIPMENT_RECEIVED:          { dot: 'bg-hprh-sage border-hprh-sage', badge: 'bg-hprh-sage/10 text-hprh-sage border-hprh-sage/30', label: 'Shipment Received' },
-  PICKED_UP:                  { dot: 'bg-hprh-sage border-hprh-sage', badge: 'bg-hprh-sage/10 text-hprh-sage border-hprh-sage/30', label: 'Picked Up' },
-  IN_TRANSIT:                 { dot: 'bg-hprh-gold border-hprh-gold', badge: 'bg-hprh-gold/10 text-hprh-gold/80 border-hprh-gold/30', label: 'In Transit' },
-  ARRIVED_AT_SORTING_CENTER:  { dot: 'bg-hprh-sage border-hprh-sage', badge: 'bg-hprh-sage/10 text-hprh-sage border-hprh-sage/30', label: 'At Sorting Center' },
-  CUSTOMS_CLEARANCE:          { dot: 'bg-blue-500 border-blue-500', badge: 'bg-blue-50 text-blue-700 border-blue-200', label: 'Customs Clearance' },
-  CUSTOMS_HOLD:               { dot: 'bg-hprh-clay border-hprh-clay', badge: 'bg-hprh-clay/10 text-hprh-clay border-hprh-clay/30', label: 'Customs Hold' },
-  OUT_FOR_DELIVERY:           { dot: 'bg-hprh-gold border-hprh-gold', badge: 'bg-hprh-gold/10 text-hprh-gold/80 border-hprh-gold/30', label: 'Out for Delivery' },
-  DELIVERED:                  { dot: 'bg-hprh-sage border-hprh-sage', badge: 'bg-hprh-sage/10 text-hprh-sage border-hprh-sage/30', label: 'Delivered' },
-  DELAYED:                    { dot: 'bg-hprh-clay border-hprh-clay', badge: 'bg-hprh-clay/10 text-hprh-clay border-hprh-clay/30', label: 'Delayed' },
-  RETURNED_TO_SENDER:         { dot: 'bg-hprh-clay border-hprh-clay', badge: 'bg-hprh-clay/10 text-hprh-clay border-hprh-clay/30', label: 'Returned to Sender' },
+  SHIPMENT_CREATED:           { dot: 'bg-slate-400 border-slate-300', badge: 'bg-slate-100 text-slate-700 border-slate-200', label: 'Shipment Created' },
+  SHIPMENT_RECEIVED:          { dot: 'bg-sky-500 border-sky-400', badge: 'bg-sky-50 text-sky-700 border-sky-200', label: 'Shipment Received' },
+  PICKED_UP:                  { dot: 'bg-indigo-500 border-indigo-400', badge: 'bg-indigo-50 text-indigo-700 border-indigo-200', label: 'Picked Up' },
+  IN_TRANSIT:                 { dot: 'bg-indigo-600 border-indigo-500', badge: 'bg-indigo-50 text-indigo-700 border-indigo-200', label: 'In Transit' },
+  ARRIVED_AT_SORTING_CENTER:  { dot: 'bg-sky-600 border-sky-500', badge: 'bg-sky-50 text-sky-700 border-sky-200', label: 'At Sorting Center' },
+  CUSTOMS_CLEARANCE:          { dot: 'bg-blue-600 border-blue-500', badge: 'bg-blue-50 text-blue-700 border-blue-200', label: 'Customs Clearance' },
+  CUSTOMS_HOLD:               { dot: 'bg-amber-500 border-amber-400', badge: 'bg-amber-50 text-amber-800 border-amber-200', label: 'Customs Hold' },
+  OUT_FOR_DELIVERY:           { dot: 'bg-emerald-500 border-emerald-400', badge: 'bg-emerald-50 text-emerald-700 border-emerald-200', label: 'Out for Delivery' },
+  DELIVERED:                  { dot: 'bg-emerald-600 border-emerald-500', badge: 'bg-emerald-50 text-emerald-700 border-emerald-200', label: 'Delivered' },
+  DELAYED:                    { dot: 'bg-rose-500 border-rose-400', badge: 'bg-rose-50 text-rose-700 border-rose-200', label: 'Delayed' },
+  RETURNED_TO_SENDER:         { dot: 'bg-rose-600 border-rose-500', badge: 'bg-rose-50 text-rose-700 border-rose-200', label: 'Returned to Sender' },
 };
 
 const TrackingPage: React.FC = () => {
@@ -58,7 +58,7 @@ const TrackingPage: React.FC = () => {
       if (dbErr) throw dbErr;
 
       if (!data) {
-        setError("We couldn't find a shipment with that tracking number. Please double-check and try again.");
+        setError("We couldn't find a shipment with that tracking number. Please verify the code and try again.");
         return;
       }
 
@@ -93,31 +93,27 @@ const TrackingPage: React.FC = () => {
   };
 
   return (
-    <div className="py-12 md:py-20 bg-hprh-paper min-h-screen text-hprh-pine font-sans">
+    <div className="py-12 md:py-20 bg-slate-50 min-h-screen text-slate-900 font-sans">
       <Container className="max-w-2xl space-y-8">
 
         {/* Header */}
         <div className="text-center space-y-3">
-          <span className="font-mono text-xs uppercase tracking-widest text-hprh-sage font-bold bg-hprh-sage/5 border border-hprh-sage/20 px-3 py-1 rounded inline-block">
-            Shipment Tracking
+          <span className="text-xs font-bold uppercase tracking-widest text-indigo-600 bg-indigo-50 border border-indigo-200/60 px-3 py-1 rounded-full inline-block">
+            Rescue4paws Real-Time Tracking
           </span>
-          <h1 className="text-3xl sm:text-5xl font-extrabold font-display text-hprh-pine mt-2">
+          <h1 className="text-3xl sm:text-5xl font-extrabold font-display text-slate-900 tracking-tight">
             Track Your Shipment
           </h1>
-          <p className="text-xs sm:text-sm text-hprh-pine/60 max-w-md mx-auto leading-relaxed">
-            Enter your tracking number to view the current status, location, and full delivery timeline.
+          <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+            Enter your tracking code to view verified milestones, carrier location, and estimated delivery timeline.
           </p>
         </div>
 
         {/* Search Box */}
-        <div
-          className="bg-hprh-paper-dark border-2 border-hprh-pine/20 rounded-xl shadow-md p-6 max-w-md mx-auto relative overflow-hidden"
-          style={{ backgroundImage: 'radial-gradient(#1f2a1e05 1px, transparent 0)', backgroundSize: '16px 16px' }}
-        >
-          <div className="absolute top-0 left-0 w-full h-1 bg-hprh-clay/40" />
+        <div className="bg-white border border-slate-200/80 rounded-3xl shadow-sm p-6 sm:p-7 max-w-md mx-auto relative overflow-hidden">
           <form onSubmit={handleSearch} className="space-y-4">
             <div className="flex flex-col gap-1.5">
-              <label className="text-[10px] font-mono uppercase tracking-widest text-hprh-pine/70 font-bold">
+              <label className="text-xs font-semibold text-slate-700">
                 Tracking Number
               </label>
               <div className="relative">
@@ -126,19 +122,19 @@ const TrackingPage: React.FC = () => {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   placeholder="e.g. SHP-2026-4827"
-                  className="w-full bg-hprh-paper border-2 border-hprh-pine/15 focus:border-hprh-sage focus:ring-1 focus:ring-hprh-sage/20 rounded py-2.5 px-4 pr-10 text-xs font-mono font-bold placeholder-hprh-pine/30 text-hprh-pine uppercase outline-none transition-all"
+                  className="w-full bg-slate-50 border border-slate-200 focus:border-indigo-600 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 rounded-xl py-3 px-4 pr-10 text-xs font-mono font-bold placeholder-slate-400 text-slate-900 uppercase outline-none transition-all"
                   required
                 />
-                <Search className="w-4 h-4 text-hprh-pine/40 absolute right-3.5 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2" />
               </div>
             </div>
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-hprh-sage hover:bg-hprh-sage/95 text-hprh-paper disabled:bg-hprh-sage/50 text-xs font-mono font-bold py-3 px-6 rounded uppercase tracking-wider transition-all flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white text-xs font-semibold py-3 px-6 rounded-full uppercase tracking-wider transition-all duration-200 shadow-md shadow-indigo-600/20 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
             >
               {loading ? (
-                <><Loader2 className="w-4 h-4 animate-spin" /> Searching...</>
+                <><Loader2 className="w-4 h-4 animate-spin" /> Searching Database...</>
               ) : (
                 'Track Shipment'
               )}
@@ -146,11 +142,11 @@ const TrackingPage: React.FC = () => {
           </form>
 
           {error && (
-            <div className="bg-hprh-clay/10 border border-hprh-clay/20 text-hprh-pine p-4 rounded text-xs flex items-start gap-3 mt-4 animate-in fade-in">
-              <AlertTriangle className="w-5 h-5 text-hprh-clay flex-shrink-0" />
+            <div className="bg-rose-50 border border-rose-200 text-rose-800 p-4 rounded-2xl text-xs flex items-start gap-3 mt-4 animate-in fade-in">
+              <AlertTriangle className="w-5 h-5 text-rose-600 flex-shrink-0" />
               <div>
-                <span className="font-mono uppercase font-bold text-hprh-clay block">Not Found</span>
-                <p className="leading-relaxed font-sans mt-1">{error}</p>
+                <span className="font-semibold text-rose-700 block">Record Not Found</span>
+                <p className="leading-relaxed font-sans mt-0.5">{error}</p>
               </div>
             </div>
           )}
@@ -158,85 +154,82 @@ const TrackingPage: React.FC = () => {
 
         {/* Tracking Result */}
         {shipment && currentStatusCfg && (
-          <div className="bg-hprh-paper-dark border-2 border-hprh-pine/20 rounded-xl shadow-md p-6 sm:p-8 space-y-6 animate-in slide-in-from-bottom-2 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-hprh-sage" />
+          <div className="bg-white border border-slate-200/80 rounded-3xl shadow-lg p-6 sm:p-8 space-y-6 animate-in slide-in-from-bottom-2 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-indigo-600 to-sky-500" />
 
             {/* Docket Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-dashed border-hprh-pine/20 pb-5 gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-5 gap-4">
               <div>
-                <span className="font-mono text-[9px] uppercase tracking-widest text-hprh-pine/40 font-bold block mb-1">
-                  Tracking Number
+                <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 font-semibold block mb-0.5">
+                  Consignment Reference
                 </span>
-                <h2 className="font-mono text-xl sm:text-2xl font-bold text-hprh-pine uppercase tracking-wide">
+                <h2 className="font-mono text-xl sm:text-2xl font-extrabold text-slate-900 uppercase tracking-wide">
                   {shipment.tracking_number}
                 </h2>
+                <span className="text-[11px] text-slate-500 mt-0.5 block font-sans">
+                  Booked on {new Date(shipment.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                </span>
               </div>
-              <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-3 py-1.5 rounded border ${currentStatusCfg.badge} ${
-                shipment.current_status === 'IN_TRANSIT' || shipment.current_status === 'OUT_FOR_DELIVERY' ? 'animate-pulse' : ''
-              }`}>
-                {TRACKING_STATUS_LABELS[shipment.current_status]}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border shadow-2xs ${currentStatusCfg.badge}`}>
+                  <span className={`w-2 h-2 rounded-full ${currentStatusCfg.dot}`} />
+                  {currentStatusCfg.label}
+                </span>
+              </div>
             </div>
 
-            {/* Shipment Info Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
+            {/* Overview Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs bg-slate-50 border border-slate-200/70 p-4 rounded-2xl">
               <div>
-                <span className="font-mono text-[9px] uppercase text-hprh-pine/40 block">Shipping Method</span>
-                <div className="flex items-center gap-1.5 mt-1 font-semibold text-hprh-pine">
-                  {shipment.shipping_method === 'air' ? <Plane className="w-3.5 h-3.5 text-hprh-sage" /> : <Truck className="w-3.5 h-3.5 text-hprh-sage" />}
-                  {shipment.shipping_method === 'air' ? 'Air Freight' : 'Land Transport'}
-                </div>
-              </div>
-              <div>
-                <span className="font-mono text-[9px] uppercase text-hprh-pine/40 block">Category</span>
-                <div className="flex items-center gap-1.5 mt-1 font-semibold text-hprh-pine">
-                  {shipment.shipment_category === 'pets' ? <PawPrint className="w-3.5 h-3.5 text-hprh-sage" /> : <Package className="w-3.5 h-3.5 text-hprh-sage" />}
+                <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold block">Category</span>
+                <div className="mt-1 font-semibold text-slate-900 flex items-center gap-1">
+                  {shipment.shipment_category === 'pets' && <PawPrint className="w-3.5 h-3.5 text-indigo-600 inline" />}
                   {CATEGORY_LABELS[shipment.shipment_category]}
                 </div>
               </div>
               <div>
-                <span className="font-mono text-[9px] uppercase text-hprh-pine/40 block">Weight</span>
-                <span className="mt-1 font-semibold text-hprh-pine block">{shipment.weight_kg} kg</span>
+                <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold block">Weight</span>
+                <span className="mt-1 font-semibold text-slate-900 block">{shipment.weight_kg} kg</span>
               </div>
               {(shipment.length_cm || shipment.width_cm || shipment.height_cm) && (
                 <div>
-                  <span className="font-mono text-[9px] uppercase text-hprh-pine/40 block">Dimensions</span>
-                  <span className="mt-1 font-semibold text-hprh-pine block">
-                    {shipment.length_cm}×{shipment.width_cm}×{shipment.height_cm} cm
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold block">Dimensions</span>
+                  <span className="mt-1 font-semibold text-slate-900 block">
+                    {shipment.length_cm} × {shipment.width_cm} × {shipment.height_cm} cm
                   </span>
                 </div>
               )}
               {shipment.estimated_delivery_date && (
                 <div>
-                  <span className="font-mono text-[9px] uppercase text-hprh-pine/40 block">Est. Delivery</span>
-                  <span className="mt-1 font-semibold text-hprh-sage block">
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold block">Est. Delivery</span>
+                  <span className="mt-1 font-semibold text-indigo-600 block">
                     {new Date(shipment.estimated_delivery_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </span>
                 </div>
               )}
               {shipment.distance_km && (
                 <div>
-                  <span className="font-mono text-[9px] uppercase text-hprh-pine/40 block">Distance</span>
-                  <span className="mt-1 font-semibold text-hprh-pine block">{Number(shipment.distance_km).toFixed(1)} km</span>
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold block">Calculated Route</span>
+                  <span className="mt-1 font-semibold text-slate-900 block">{Number(shipment.distance_km).toFixed(1)} km</span>
                 </div>
               )}
             </div>
 
             {/* Route */}
             {(shipment.pickup_address || shipment.destination_address) && (
-              <div className="bg-hprh-paper/60 border border-hprh-pine/10 rounded-lg p-4 space-y-2 text-xs">
-                <div className="flex items-start gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-hprh-sage flex-shrink-0 mt-0.5" />
+              <div className="bg-slate-50 border border-slate-200/70 rounded-2xl p-4 space-y-2.5 text-xs">
+                <div className="flex items-start gap-2.5">
+                  <MapPin className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-mono text-[9px] uppercase text-hprh-pine/40">From</span>
-                    <p className="text-hprh-pine font-semibold">{shipment.pickup_address}</p>
+                    <span className="text-[10px] font-mono uppercase text-slate-400 font-semibold block">Origin / Pickup</span>
+                    <p className="text-slate-800 font-semibold">{shipment.pickup_address}</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-hprh-clay flex-shrink-0 mt-0.5" />
+                <div className="flex items-start gap-2.5">
+                  <MapPin className="w-4 h-4 text-sky-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-mono text-[9px] uppercase text-hprh-pine/40">To</span>
-                    <p className="text-hprh-pine font-semibold">{shipment.destination_address}</p>
+                    <span className="text-[10px] font-mono uppercase text-slate-400 font-semibold block">Destination</span>
+                    <p className="text-slate-800 font-semibold">{shipment.destination_address}</p>
                   </div>
                 </div>
               </div>
@@ -244,14 +237,14 @@ const TrackingPage: React.FC = () => {
 
             {/* Pet info */}
             {shipment.shipment_category === 'pets' && shipment.pet_name && (
-              <div className="flex items-center gap-4 bg-hprh-paper/50 border border-hprh-pine/10 p-4 rounded-lg">
-                <div className="w-12 h-12 bg-hprh-sage/10 text-hprh-sage rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="flex items-center gap-4 bg-indigo-50/60 border border-indigo-100 p-4 rounded-2xl">
+                <div className="w-12 h-12 bg-indigo-600 text-white rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm shadow-indigo-600/20">
                   <PawPrint className="w-6 h-6" />
                 </div>
                 <div>
-                  <span className="font-mono text-[8px] uppercase tracking-widest text-hprh-pine/40 font-bold block">Passenger</span>
-                  <span className="font-display text-xl font-extrabold text-hprh-pine">{shipment.pet_name}</span>
-                  <span className="text-xs text-hprh-pine/60 block font-sans">
+                  <span className="text-[10px] uppercase tracking-widest text-indigo-600 font-bold block">Pet Passenger</span>
+                  <span className="font-display text-xl font-extrabold text-slate-900">{shipment.pet_name}</span>
+                  <span className="text-xs text-slate-600 block font-sans">
                     {shipment.pet_breed || shipment.pet_species} {shipment.pet_age ? `• ${shipment.pet_age}` : ''}
                   </span>
                 </div>
@@ -260,52 +253,52 @@ const TrackingPage: React.FC = () => {
 
             {/* Admin Notes */}
             {shipment.admin_notes && (
-              <div className="bg-hprh-gold/10 border border-hprh-gold/20 rounded-lg p-4 flex items-start gap-3">
-                <Info className="w-4 h-4 text-hprh-gold/80 flex-shrink-0 mt-0.5" />
+              <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start gap-3">
+                <Info className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-mono text-[9px] uppercase text-hprh-pine/50 font-bold block">Notes from Our Team</span>
-                  <p className="text-xs text-hprh-pine/80 leading-relaxed mt-1">{shipment.admin_notes}</p>
+                  <span className="text-[10px] uppercase font-semibold text-amber-800 block">Dispatch Notes</span>
+                  <p className="text-xs text-amber-900 leading-relaxed mt-0.5">{shipment.admin_notes}</p>
                 </div>
               </div>
             )}
 
             {/* Tracking Timeline */}
-            <div className="space-y-4">
-              <h3 className="font-mono text-xs uppercase tracking-widest font-bold text-hprh-sage border-b border-hprh-sage/20 pb-2">
-                Tracking Timeline
+            <div className="space-y-4 pt-2">
+              <h3 className="text-xs uppercase tracking-widest font-bold text-slate-900 border-b border-slate-100 pb-2">
+                Milestone Timeline
               </h3>
 
               {events.length === 0 ? (
-                <div className="bg-hprh-paper border border-hprh-pine/10 rounded p-4 text-xs text-hprh-pine/60 italic text-center">
-                  Tracking events will appear here as your shipment progresses.
+                <div className="bg-slate-50 border border-slate-200/70 rounded-xl p-4 text-xs text-slate-500 italic text-center">
+                  Tracking events will appear here as your shipment progresses through checkpoints.
                 </div>
               ) : (
-                <div className="relative pl-6 space-y-6 border-l-2 border-dashed border-hprh-pine/15 py-1 ml-2">
+                <div className="relative pl-6 space-y-6 border-l-2 border-dashed border-indigo-200 py-1 ml-2">
                   {events.map(event => {
                     const cfg = STATUS_CONFIG[event.status as TrackingStatus] || STATUS_CONFIG['SHIPMENT_CREATED'];
                     return (
                       <div key={event.id} className="relative">
                         {/* Dot */}
                         <div className={`absolute -left-[31px] top-1 w-4 h-4 rounded-full border-2 flex items-center justify-center ${cfg.dot}`}>
-                          <div className="w-1.5 h-1.5 rounded-full bg-white/80" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-white" />
                         </div>
                         <div className="space-y-1.5">
                           <div className="flex flex-wrap items-center gap-2">
-                            <span className={`text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 border rounded-sm ${cfg.badge}`}>
+                            <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 border rounded-full ${cfg.badge}`}>
                               {TRACKING_STATUS_LABELS[event.status as TrackingStatus] || event.status}
                             </span>
-                            <span className="text-[10px] text-hprh-pine/50 font-mono">
+                            <span className="text-[11px] text-slate-400 font-mono">
                               {formatDate(event.event_time)}
                             </span>
                           </div>
                           {event.location && (
-                            <div className="text-xs font-bold text-hprh-pine">
-                              <span className="font-mono text-[9px] uppercase tracking-wider text-hprh-pine/40 font-normal mr-1">Location:</span>
+                            <div className="text-xs font-semibold text-slate-800">
+                              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-normal mr-1">Location:</span>
                               {event.location}
                             </div>
                           )}
                           {event.notes && (
-                            <p className="text-xs text-hprh-pine/70 leading-relaxed bg-hprh-paper/40 border border-hprh-pine/5 p-3 rounded">
+                            <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 border border-slate-200/70 p-3 rounded-xl">
                               {event.notes}
                             </p>
                           )}
@@ -319,14 +312,14 @@ const TrackingPage: React.FC = () => {
 
             {/* Delivered Banner */}
             {shipment.current_status === 'DELIVERED' && (
-              <div className="bg-hprh-sage/10 border border-hprh-sage/20 p-4 rounded-xl flex items-start gap-3 animate-in slide-in-from-bottom-2">
-                <div className="p-2 bg-hprh-sage/20 text-hprh-sage rounded-full flex-shrink-0 animate-bounce">
+              <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl flex items-start gap-3 animate-in slide-in-from-bottom-2">
+                <div className="p-2 bg-emerald-100 text-emerald-700 rounded-full flex-shrink-0 animate-bounce">
                   <CheckCircle2 className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="font-mono uppercase font-bold text-hprh-pine block text-xs">Delivery Complete</span>
-                  <p className="text-xs leading-relaxed font-sans text-hprh-pine/80 mt-1">
-                    Your shipment has been successfully delivered to its destination. Thank you for choosing HPRH Transport!
+                  <span className="uppercase font-bold text-emerald-900 block text-xs">Delivery Confirmed</span>
+                  <p className="text-xs leading-relaxed font-sans text-emerald-800 mt-0.5">
+                    Your consignment has reached its recipient successfully. Thank you for choosing Rescue4paws Transport Network!
                   </p>
                 </div>
               </div>

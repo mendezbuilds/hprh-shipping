@@ -8,7 +8,7 @@ interface AdminLayoutProps {
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => (
   <>
     <AdminHeader />
-    <div className="min-h-screen bg-hprh-paper py-8">
+    <div className="min-h-screen bg-slate-50 py-8">
       {children}
     </div>
   </>
