@@ -109,7 +109,7 @@ const AdminLogin: React.FC = () => {
                 onChange={e => setEmail(e.target.value)}
                 required
                 className="w-full bg-slate-50 border border-slate-200 focus:border-indigo-600 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400"
-                placeholder="staff@rescue4paws.org"
+                placeholder="staff@rescue4pawz.site"
               />
             </div>
 

@@ -55,7 +55,7 @@ const TESTIMONIALS = [
 const Home: React.FC = () => {
   const [contactInfo, setContactInfo] = useState({
     phone: '(409) 422-8478',
-    email: 'transport@rescue4paws.org'
+    email: 'transport@rescue4pawz.site'
   });
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const Home: React.FC = () => {
         if (data) {
           const info = {
             phone: '(409) 422-8478',
-            email: 'transport@rescue4paws.org'
+            email: 'transport@rescue4pawz.site'
           };
           data.forEach((row: any) => {
             if (row.key === 'contact_phone' && row.value) info.phone = row.value;
@@ -125,7 +125,7 @@ const Home: React.FC = () => {
             {/* Subheading */}
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl font-normal">
               Rescue4paws Transport is the dedicated shipping and logistics network of{' '}
-              <a href="https://rescue4paws.org" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 font-semibold underline decoration-indigo-400/40">
+              <a href="https://rescue4pawz.site" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 font-semibold underline decoration-indigo-400/40">
                 Rescue4paws
               </a>
               . Whether moving a rescue pet to their loving forever family, expediting sensitive documents, or freighting valuable cargo — we deliver white-glove care, temperature-controlled safety, and total peace of mind.

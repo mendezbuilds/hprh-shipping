@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { PawPrint, ShieldCheck, Heart, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
-const MAIN_SITE_URL = 'https://rescue4paws.org';
+const MAIN_SITE_URL = 'https://rescue4pawz.site';
 
 export const Footer: React.FC = () => {
   const [contactInfo, setContactInfo] = useState({
     phone: '(409) 422-8478',
-    email: 'transport@rescue4paws.org'
+    email: 'transport@rescue4pawz.site'
   });
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
         if (data) {
           const info = {
             phone: '(409) 422-8478',
-            email: 'transport@rescue4paws.org'
+            email: 'transport@rescue4pawz.site'
           };
           data.forEach((row: any) => {
             if (row.key === 'contact_phone' && row.value) info.phone = row.value;
@@ -180,7 +180,7 @@ export const Footer: React.FC = () => {
           </div>
           <div className="flex items-center gap-6 text-[11px]">
             <a href={MAIN_SITE_URL} target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400 transition-colors">
-              rescue4paws.org
+              rescue4pawz.site
             </a>
             <span>Terms of Transit</span>
             <span>Non-Profit Verification</span>
